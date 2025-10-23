@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MX2CRM</title>
+<link rel="stylesheet" href="/css/kalinin.css">
+<link rel="stylesheet" href="/css/c.css">
+<form>
+Контакт<input
+type="text" name="n" placeholder="ФИО или название организации" autofocus><input
+type="tel" name="t" placeholder="Телефон +7(985).."><input
+type="email" name="e" placeholder="Эл.почта"><input
+type="text" name="a" placeholder="Адрес"><textarea
+name="r" placeholder="Примечание"></textarea><select name="z"><option>Заказчик - Частное лицо
+</option><option>Заказчик - Организация
+</option><option>Партнёр
+</option><option>Агент
+</option><option>Подрядчик
+</option><option>Поставщик
+</option><option>Сотрудник
+</option></select>
+<select><option>Новый
+</option><option>Постоянный :)
+</option><option>Особенный :(
+</option><option>VIP
+</option></select><input
+type="submit" value="Сохранить"></form>
+<script>
+var t=document.title;
+document.addEventListener('focus', function (m){
+if(m.target.placeholder)document.title=m.target.placeholder; else document.title=t;
+}, true);
+document.addEventListener('blur', function (m){
+if(document.title!=t)document.title=t;
+}, true);
+document.addEventListener('submit', function (m){
+if (e.preventDefault) e.preventDefault(); else e.returnValue = false;
+console.log(m);
+}, true);
+/*
+document.addEventListener('keyup', function (m){
+if(13===m.keyCode){
+vare=m.target;
+console.log(m.keyCode,m.nextElementSibling);
+console.dir(e);
+if(e.nodeName==='INPUT' || e.nodeName==='TEXTAREA'){
+if(e.type!='submit') m.nextElementSibling.focus();
+return -1;
+}
+}
+}, true);
+*/
+</script>

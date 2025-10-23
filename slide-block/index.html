@@ -1,0 +1,76 @@
+<style type="text/css">
+*{
+margin: 0;
+padding: 0;
+}
+.p div {
+position: relative;
+left: -70px;
+width: 100px;
+height: 50px;
+background: #000;
+color: #fff;
+margin-top: 5px;
+transition: left .2s linear;
+}
+.p div:hover {
+left: 0px;
+}
+</style>
+<div class="p">
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+</div>
+или
+<style>
+.slide-container .slide {
+background-color: #232323;
+border: solid #777;
+border-width: 2px 2px 2px 0;
+color: #fff;
+height: 48px;
+line-height: 48px;
+margin: 16px 0 0 -170px;
+position: relative;
+text-align: center;
+width: 200px;
+-moz-transition: margin 1s;
+-o-transition: margin 1s;
+-webkit-transition: margin 1s;
+transition: margin 1s;
+}
+.slide-container .slide:hover {
+margin-left: 0;
+}
+.slide-container .slide .slide-content {
+float: left;
+width: 170px;
+}
+.slide-container .slide .slide-header {
+float: left;
+width: 30px;
+-moz-transition: opacity 1s;
+-o-transition: opacity 1s;
+-webkit-transition: opacity 1s;
+transition: opacity 1s;
+}
+.slide-container .slide:hover .slide-header {
+opacity: 0;
+}
+</style>
+<div class="slide-container">
+<div class="slide">
+<div class="slide-content">Slide 1 contents</div>
+<div class="slide-header">1</div>
+</div>
+<div class="slide">
+<div class="slide-content">Slide 2 contents</div>
+<div class="slide-header">2</div>
+</div>
+<div class="slide">
+<div class="slide-content">Slide 3 contents</div>
+<div class="slide-header">3</div>
+</div>
+</div>

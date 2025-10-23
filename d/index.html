@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/kalinin.css">
+<style>
+.o{
+-webkit-transform: translate3d(0,-100%,0);
+-moz-transform: translate3d(0,-100%,0);
+transform: translate3d(0,-100%,0);
+overflow: auto !important;
+}
+.n{
+position: fixed;
+top: 100%;
+bottom: 0;
+left: 0;
+z-index: 40000;
+overflow: hidden;
+width: 100%;
+height: 100%;
+max-height: 100%;
+-webkit-transition: -webkit-transform 300ms ease-out;
+-moz-transition: transform 300ms ease-out,-moz-transform 300ms ease-out;
+-o-transition: transform 300ms ease-out,-o-transform 300ms ease-out;
+transition: transform 300ms ease-out;
+transition: transform 300ms ease-out,-webkit-transform 300ms ease-out,-moz-transform 300ms ease-out,-o-transform 300ms ease-out;
+background: #ffcccc;
+will-change: transform;
+}
+.x{
+max-width: 600px;
+margin: 0 auto;
+background-color: #f2f2f2;
+min-height: 100%;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+font-size: 13px;
+line-height: 16px;
+}
+.x dd,
+.x dt{
+/* flex: 1 0 auto; */
+}
+.x dt{
+position: relative;
+padding: 20px 16px 12px;
+letter-spacing: 1px;
+font-weight: 500;
+}
+.x dd{
+/*  */
+}
+.x dt.n{
+flex: 0 0 auto;
+background-color: #fff;
+box-shadow: 0 2px 6px 0 rgba(0,0,0,.16);
+/* z-index: 1; */
+position: relative;
+min-height: 48px;
+}
+.x label{
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+color: rgba(0,0,0,.87);
+display: block;
+position: relative;
+background-color: #fff;
+font-size: 16px;
+line-height: 24px;
+padding: 12px 16px;
+/*
+-webkit-box-flex: 1;
+-webkit-flex-grow: 1;
+-moz-box-flex: 1;
+-ms-flex-positive: 1;
+flex-grow: 1;
+*/
+}
+.x label input{
+/* opacity: 0; */
+/* width: 52px; */
+margin-right: 12px;
+}
+.x label+label:before {
+left: 52px;
+position: absolute;
+top: 0;
+right: 0;
+content: '';
+border-top: 1px solid rgba(0,0,0,.1);
+}
+.x .go{
+background: #ffdc60;
+letter-spacing: 1px;
+color: rgba(0,0,0,.87);
+font-weight: 700;
+/* padding: 20px 16px; */
+height: 54px;
+line-height: 54px;
+display: block;
+text-align: center;
+align-items: flex-end;
+}
+.x a{
+letter-spacing: 1px;
+/* color: #07c; */
+color: #33c;
+padding: 12px 16px;
+background: #fff;
+display: block;
+border-top: 1px solid rgba(0,0,0,.1);
+text-align: center;
+}
+.x i{
+display: block;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+color: rgba(0,0,0,.4);
+}
+</style>
+<body>
+<dl class="x">
+<dt>СПОСОБ ДОСТАВКИ<dd>
+<label><input type="radio" name="d" value="1"> Доставка курьером</label>
+<label><input type="radio" name="d" value="2" checked> Самовывоз</label>
+<!-- Доставка курьером -->
+<dt>АДРЕС ДОСТАВКИ<dd>
+<label><input type="radio" name="a" value="1"> Москва
+<i>Москва, Россия</i>
+</label>
+<dd><a href="">ИЗМЕНИТЬ АДРЕС ДОСТАВКИ</a>
+<dt>ВАРИАНТЫ ДОСТАВКИ<dd>
+<label><input type="radio" name="v" value="1"> Срочная <i>Экспресс-доставка в течении 2-часов</i></label>
+<label><input type="radio" name="v" value="2" checked> Эконом <i>Плановая доставка в течении 48 часов</i></label>
+<!-- Самовывоз -->
+<dt>ПУНКТЫ САМОВЫВОЗА<dd>
+<label><input type="radio" name="p" value="1" checked> Москва</label>
+<label><input type="radio" name="p" value="2"> Другой город</label>
+<!-- Шаг 4 -->
+<dt>ДОПОЛНИТЕЛЬНО<dd>
+ИСПОЛЬЗОВАТЬ ПРОМОКОД<dd>
+ДОБАВИТЬ КОММЕНТАРИЙ<dd>
+Нажав «Оформить заказ», вы соглашаетесь с условиями использования сервиса <dd>
+<dd>Сумма заказа
+9 700 Р
+<dd>Самовывоз
+бесплатно
+<dd>Итого к оплате
+9 700 Р
+<dd><a href="#" class="go">ПРОДОЛЖИТЬ</a></dl>
+<p>Клик - для всплывающего окна, ещё клик и закрыли
+<div class="n">
+</div>
+<script type="text/javascript">
+document.addEventListener('click', function (e){
+var d=document.querySelector('.n');
+// var k;
+// for (var i = 0; i < 999; i++) k+='
+<p>'+i;
+// d.innerHTML='<div >'+k+'</div>';
+d.classList.toggle('o');
+// d.classList.add('o');
+}, true);
+</script>

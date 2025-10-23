@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+nav a {
+ display: block;
+ background: #eee;
+ color: #010101;
+}
+nav a.active {
+ background: #010101;
+ color: #eee;
+}
+</style>
+<nav>
+ <ul>
+   <li><a href="/about">about</a></li>
+   <li><a href="/js_link_active">js</a></li>
+   <li><a href="/info">info</a></li>
+ </ul>
+</nav>
+<script>
+var curpath = location.pathname.match(/^\/[^/]+/);
+var link = curpath && document.querySelector('nav a[href="' + curpath[0] + '"]');
+console.log(curpath);
+console.log(link);
+if (link) {
+ link.className += ' active';
+}
+</script>

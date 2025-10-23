@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript События: Полный справочник</title>
+  <style>
+    :root {
+      --bg-color: #f9f9f9;
+      --text-color: #333;
+      --accent-color: #2980b9;
+      --card-bg: white;
+      --code-bg: #f4f4f4;
+      --tooltip-bg: #28a745;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #eee;
+      --accent-color: #3498db;
+      --card-bg: #2d2d2d;
+      --code-bg: #333;
+      --tooltip-bg: #2ecc71;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      flex-grow: 1;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-btn {
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .tag-btn.active {
+      background-color: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+
+    .tag-btn:hover {
+      background-color: #f0f0f0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 16px;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: var(--card-bg);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+    }
+
+    tr td:first-child {
+      font-weight: 600;
+      background-color: var(--card-bg);
+    }
+
+    code {
+      background-color: var(--code-bg);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    code:hover {
+      background-color: #e2e2e2;
+    }
+
+    .deprecated {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    .important {
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 40px;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--tooltip-bg);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 10000;
+      animation: fadeOut 1.5s forwards;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()">?</button>
+
+  <header>
+    <h1>JavaScript События: Полный справочник</h1>
+    <p>Кликайте на код — он копируется автоматически. Используйте поиск и облако тегов для удобства.</p>
+  </header>
+
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Поиск события..." oninput="filterEvents()" />
+      <div class="tag-cloud" id="tagCloud">
+        <button class="tag-btn active" data-category="">Все</button>
+        <button class="tag-btn" data-category="Мышь">Мышь</button>
+        <button class="tag-btn" data-category="Pointer">Pointer</button>
+        <button class="tag-btn" data-category="Touch">Touch</button>
+        <button class="tag-btn" data-category="Формы">Формы</button>
+        <button class="tag-btn" data-category="Клавиатура">Клавиатура</button>
+        <button class="tag-btn" data-category="Окно">Окно</button>
+        <button class="tag-btn" data-category="WebSockets">WebSockets</button>
+        <button class="tag-btn" data-category="IndexedDB">IndexedDB</button>
+        <button class="tag-btn" data-category="Drag and Drop">Drag & Drop</button>
+        <button class="tag-btn" data-category="Мультимедиа">Мультимедиа</button>
+        <button class="tag-btn" data-category="Сетевые">Сетевые</button>
+      </div>
+    </div>
+
+    <table id="eventsTable" aria-label="Таблица событий JavaScript">
+      <thead>
+        <tr>
+          <th>Категория</th>
+          <th>Событие</th>
+          <th>Описание</th>
+          <th>Пример использования</th>
+          <th>Примечание</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Мышь -->
+        <tr><td>Мышь</td><td class="important"><code>click</code></td><td>Клик левой кнопкой мыши</td><td><code>el.addEventListener('click', handler)</code></td><td>Часто используется для взаимодействия</td></tr>
+        <tr><td>Мышь</td><td><code>dblclick</code></td><td>Двойной клик</td><td><code>el.addEventListener('dblclick', handler)</code></td><td>Реже используется</td></tr>
+        <tr><td>Мышь</td><td><code>mousedown</code></td><td>Нажатие кнопки мыши</td><td><code>el.addEventListener('mousedown', handler)</code></td><td>Вызывается до click</td></tr>
+        <tr><td>Мышь</td><td><code>mouseup</code></td><td>Отпускание кнопки мыши</td><td><code>el.addEventListener('mouseup', handler)</code></td><td>После mousedown</td></tr>
+        <tr><td>Мышь</td><td><code>mousemove</code></td><td>Перемещение курсора над элементом</td><td><code>el.addEventListener('mousemove', handler)</code></td><td>Вызывается часто</td></tr>
+        <tr><td>Мышь</td><td><code>mouseover</code></td><td>Курсор наведён на элемент</td><td><code>el.addEventListener('mouseover', handler)</code></td><td>Не всплывает</td></tr>
+        <tr><td>Мышь</td><td><code>mouseout</code></td><td>Курсор уходит с элемента</td><td><code>el.addEventListener('mouseout', handler)</code></td><td>Не всплывает</td></tr>
+        <tr><td>Мышь</td><td><code>contextmenu</code></td><td>Правый клик / контекстное меню</td><td><code>el.addEventListener('contextmenu', handler)</code></td><td>Можно отменить</td></tr>
+
+        <!-- Pointer -->
+        <tr><td>Pointer</td><td><code>pointerdown</code></td><td>Начало взаимодействия указателем</td><td><code>el.addEventListener('pointerdown', handler)</code></td><td>Поддерживает touch, мышь, перо</td></tr>
+        <tr><td>Pointer</td><td><code>pointerup</code></td><td>Завершение взаимодействия указателем</td><td><code>el.addEventListener('pointerup', handler)</code></td><td>Универсальное событие</td></tr>
+        <tr><td>Pointer</td><td><code>pointermove</code></td><td>Перемещение указателя</td><td><code>el.addEventListener('pointermove', handler)</code></td><td>Объединяет mousemove/touchmove</td></tr>
+
+        <!-- Touch -->
+        <tr><td>Touch</td><td><code>touchstart</code></td><td>Начало касания экрана</td><td><code>el.addEventListener('touchstart', handler)</code></td><td>Для мобильных</td></tr>
+        <tr><td>Touch</td><td><code>touchend</code></td><td>Конец касания</td><td><code>el.addEventListener('touchend', handler)</code></td><td>Для мобильных</td></tr>
+        <tr><td>Touch</td><td><code>touchmove</code></td><td>Перемещение пальца по экрану</td><td><code>el.addEventListener('touchmove', handler)</code></td><td>Для мобильных</td></tr>
+
+        <!-- Формы -->
+        <tr><td>Формы</td><td class="important"><code>input</code></td><td>Изменение значения поля ввода</td><td><code>input.addEventListener('input', handler)</code></td><td>В реальном времени</td></tr>
+        <tr><td>Формы</td><td><code>change</code></td><td>Изменение после потери фокуса</td><td><code>input.addEventListener('change', handler)</code></td><td>Для select, checkbox</td></tr>
+        <tr><td>Формы</td><td><code>focus</code></td><td>Элемент получил фокус</td><td><code>input.addEventListener('focus', handler)</code></td><td>UI подсветка</td></tr>
+        <tr><td>Формы</td><td><code>blur</code></td><td>Элемент потерял фокус</td><td><code>input.addEventListener('blur', handler)</code></td><td>Проверка данных</td></tr>
+
+        <!-- Клавиатура -->
+        <tr><td>Клавиатура</td><td><code>keydown</code></td><td>Клавиша нажата</td><td><code>window.addEventListener('keydown', handler)</code></td><td>Повторяется при удержании</td></tr>
+        <tr><td>Клавиатура</td><td><code>keyup</code></td><td>Клавиша отпущена</td><td><code>window.addEventListener('keyup', handler)</code></td><td>После keydown</td></tr>
+
+        <!-- Окно -->
+        <tr><td>Окно</td><td class="important"><code>load</code></td><td>Страница загружена</td><td><code>window.addEventListener('load', handler)</code></td><td>После DOMContentLoaded</td></tr>
+        <tr><td>Окно</td><td><code>DOMContentLoaded</code></td><td>DOM готов</td><td><code>document.addEventListener('DOMContentLoaded', handler)</code></td><td>Без ожидания стилей</td></tr>
+        <tr><td>Окно</td><td><code>resize</code></td><td>Изменение размера окна</td><td><code>window.addEventListener('resize', handler)</code></td><td>Иногда дебажат</td></tr>
+
+        <!-- WebSockets -->
+        <tr><td>WebSockets</td><td class="important"><code>open</code></td><td>Соединение установлено</td><td><code>socket.addEventListener('open', handler)</code></td><td>Вызывается один раз</td></tr>
+        <tr><td>WebSockets</td><td class="important"><code>message</code></td><td>Получено сообщение</td><td><code>socket.addEventListener('message', handler)</code></td><td>Часто используется</td></tr>
+
+        <!-- IndexedDB -->
+        <tr><td>IndexedDB</td><td class="important"><code>success</code></td><td>Успешное открытие базы</td><td><code>request.addEventListener('success', handler)</code></td><td>Обязательное событие</td></tr>
+        <tr><td>IndexedDB</td><td class="important"><code>upgradeneeded</code></td><td>Требуется обновление версии</td><td><code>indexedDB.open(...).addEventListener('upgradeneeded', handler)</code></td><td>Вызывается при изменении версии</td></tr>
+
+        <!-- Drag and Drop -->
+        <tr><td>Drag and Drop</td><td class="important"><code>dragstart</code></td><td>Начало перетаскивания</td><td><code>el.addEventListener('dragstart', handler)</code></td><td>Установите данные через dataTransfer</td></tr>
+        <tr><td>Drag and Drop</td><td class="important"><code>drop</code></td><td>Объект "упал"</td><td><code>target.addEventListener('drop', handler)</code></td><td>Основное событие</td></tr>
+
+        <!-- Мультимедиа -->
+        <tr><td>Мультимедиа</td><td><code>play</code></td><td>Начало воспроизведения</td><td><code>video.addEventListener('play', handler)</code></td><td>Видео или аудио</td></tr>
+        <tr><td>Мультимедиа</td><td><code>pause</code></td><td>Пауза</td><td><code>video.addEventListener('pause', handler)</code></td><td>Видео или аудио</td></tr>
+
+        <!-- Сетевые -->
+        <tr><td>Сетевые</td><td><code>online</code></td><td>Пользователь онлайн</td><td><code>window.addEventListener('online', handler)</code></td><td>Доступ к сети</td></tr>
+        <tr><td>Сетевые</td><td><code>offline</code></td><td>Пользователь офлайн</td><td><code>window.addEventListener('offline', handler)</code></td><td>Нет подключения</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    &copy; 2025 JavaScript Events Reference · Автор: Профессор JS
+  </footer>
+
+  <script>
+    // Копирование содержимого <code>
+    document.addEventListener('click', function (event) {
+      if (event.target.tagName === 'CODE') {
+        const codeText = event.target.textContent;
+
+        navigator.clipboard.writeText(codeText)
+          .then(() => showTooltip(event.target, 'Скопировано!'))
+          .catch(err => alert('Ошибка копирования: ' + err.message));
+      }
+    });
+
+    // Подсказка при копировании
+    function showTooltip(element, message) {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      tooltip.textContent = message;
+
+      const rect = element.getBoundingClientRect();
+      tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+      tooltip.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
+
+      document.body.appendChild(tooltip);
+
+      setTimeout(() => tooltip.remove(), 1500);
+    }
+
+    // Переключатель темы
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    }
+
+    // Обработчик кликов по тегам
+    document.getElementById('tagCloud').addEventListener('click', function (e) {
+      if (e.target.classList.contains('tag-btn')) {
+        if (e.target.dataset.category === "") {
+          document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+        } else {
+          e.target.classList.toggle('active');
+          document.querySelector('.tag-btn[data-category=""]').classList.remove('active');
+        }
+        filterEvents();
+      }
+    });
+
+    // Фильтр и поиск
+    function filterEvents() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const activeCategories = Array.from(document.querySelectorAll('.tag-btn.active')).map(btn => btn.dataset.category);
+
+      const rows = document.querySelectorAll('#eventsTable tbody tr');
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const category = cells[0].textContent;
+        const event = cells[1].textContent.toLowerCase();
+        const description = cells[2].textContent.toLowerCase();
+
+        const matchesSearch = event.includes(search) || description.includes(search);
+        const matchesCategory = activeCategories.length === 0 || activeCategories.includes(category);
+
+        row.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

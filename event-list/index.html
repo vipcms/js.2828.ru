@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Список всех основных событий в JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+
+    caption {
+      caption-side: top;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    article section {
+      margin-bottom: 40px;
+    }
+
+    pre {
+      background-color: #f9f9f9;
+      padding: 10px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+<article>
+  <header>
+    <h1>Список всех основных событий в JavaScript (HTML5)</h1>
+    <p><em>Автор: Профессор JS · Дата: 05 апреля 2025 г.</em></p>
+  </header>
+
+  <section>
+    <h2>Введение</h2>
+    <p>
+      События в JavaScript — это способ отслеживать действия пользователя и изменения в браузере.
+      В этой статье приведена полная таблица часто используемых событий, разбитых по категориям.
+    </p>
+  </section>
+
+  <section>
+    <h2>Таблица событий</h2>
+    <table aria-label="Список событий в JavaScript">
+      <thead>
+        <tr>
+          <th>Категория</th>
+          <th>Событие</th>
+          <th>Описание</th>
+          <th>Пример использования</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- События мыши -->
+        <tr>
+          <td rowspan="8">События мыши</td>
+          <td><code>click</code></td>
+          <td>Клик левой кнопкой мыши</td>
+          <td><code>element.addEventListener('click', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>dblclick</code></td>
+          <td>Двойной клик</td>
+          <td><code>element.addEventListener('dblclick', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>mousedown</code></td>
+          <td>Нажатие кнопки мыши</td>
+          <td><code>element.addEventListener('mousedown', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>mouseup</code></td>
+          <td>Отпускание кнопки мыши</td>
+          <td><code>element.addEventListener('mouseup', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>mousemove</code></td>
+          <td>Перемещение курсора над элементом</td>
+          <td><code>element.addEventListener('mousemove', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>mouseover</code></td>
+          <td>Курсор наведён на элемент</td>
+          <td><code>element.addEventListener('mouseover', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>mouseout</code></td>
+          <td>Курсор уходит с элемента</td>
+          <td><code>element.addEventListener('mouseout', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>contextmenu</code></td>
+          <td>Правый клик / контекстное меню</td>
+          <td><code>element.addEventListener('contextmenu', handler)</code></td>
+        </tr>
+
+        <!-- Pointer события -->
+        <tr>
+          <td rowspan="6">Pointer события</td>
+          <td><code>pointerdown</code></td>
+          <td>Начало взаимодействия указателем</td>
+          <td><code>el.addEventListener('pointerdown', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>pointerup</code></td>
+          <td>Завершение взаимодействия указателем</td>
+          <td><code>el.addEventListener('pointerup', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>pointermove</code></td>
+          <td>Перемещение указателя</td>
+          <td><code>el.addEventListener('pointermove', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>pointercancel</code></td>
+          <td>Взаимодействие прервано системой</td>
+          <td><code>el.addEventListener('pointercancel', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>pointerover</code></td>
+          <td>Указатель наведён на элемент</td>
+          <td><code>el.addEventListener('pointerover', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>pointerout</code></td>
+          <td>Указатель ушёл с элемента</td>
+          <td><code>el.addEventListener('pointerout', handler)</code></td>
+        </tr>
+
+        <!-- Touch события -->
+        <tr>
+          <td rowspan="4">Touch события</td>
+          <td><code>touchstart</code></td>
+          <td>Начало касания экрана</td>
+          <td><code>el.addEventListener('touchstart', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>touchend</code></td>
+          <td>Конец касания</td>
+          <td><code>el.addEventListener('touchend', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>touchmove</code></td>
+          <td>Перемещение пальца по экрану</td>
+          <td><code>el.addEventListener('touchmove', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>touchcancel</code></td>
+          <td>Касание было прервано</td>
+          <td><code>el.addEventListener('touchcancel', handler)</code></td>
+        </tr>
+
+        <!-- Формы и элементы ввода -->
+        <tr>
+          <td rowspan="6">Формы и элементы ввода</td>
+          <td><code>input</code></td>
+          <td>Изменение значения поля ввода (в реальном времени)</td>
+          <td><code>input.addEventListener('input', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>change</code></td>
+          <td>Изменение значения после потери фокуса</td>
+          <td><code>input.addEventListener('change', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>focus</code></td>
+          <td>Элемент получил фокус</td>
+          <td><code>input.addEventListener('focus', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>blur</code></td>
+          <td>Элемент потерял фокус</td>
+          <td><code>input.addEventListener('blur', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>submit</code></td>
+          <td>Отправка формы</td>
+          <td><code>form.addEventListener('submit', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>reset</code></td>
+          <td>Форма была сброшена</td>
+          <td><code>form.addEventListener('reset', handler)</code></td>
+        </tr>
+
+        <!-- Клавиатура -->
+        <tr>
+          <td rowspan="3">Клавиатура</td>
+          <td><code>keydown</code></td>
+          <td>Нажата клавиша (повторяется при удержании)</td>
+          <td><code>window.addEventListener('keydown', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>keyup</code></td>
+          <td>Отпущена клавиша</td>
+          <td><code>window.addEventListener('keyup', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>keypress</code></td>
+          <td>Введён символ (устаревшее)</td>
+          <td>—</td>
+        </tr>
+
+        <!-- Окно и загрузка страницы -->
+        <tr>
+          <td rowspan="6">Окно и загрузка страницы</td>
+          <td><code>load</code></td>
+          <td>Страница полностью загружена</td>
+          <td><code>window.addEventListener('load', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>DOMContentLoaded</code></td>
+          <td>DOM готов к работе</td>
+          <td><code>document.addEventListener('DOMContentLoaded', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>beforeunload</code></td>
+          <td>Пользователь покидает страницу</td>
+          <td><code>window.addEventListener('beforeunload', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>unload</code></td>
+          <td>Страница выгружается</td>
+          <td><code>window.addEventListener('unload', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>resize</code></td>
+          <td>Изменение размеров окна</td>
+          <td><code>window.addEventListener('resize', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>scroll</code></td>
+          <td>Прокрутка элемента или окна</td>
+          <td><code>window.addEventListener('scroll', handler)</code></td>
+        </tr>
+
+        <!-- Мультимедиа -->
+        <tr>
+          <td rowspan="5">Мультимедиа</td>
+          <td><code>play</code></td>
+          <td>Воспроизведение запущено</td>
+          <td><code>video.addEventListener('play', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>pause</code></td>
+          <td>Воспроизведение остановлено</td>
+          <td><code>video.addEventListener('pause', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>ended</code></td>
+          <td>Медиа закончилось</td>
+          <td><code>audio.addEventListener('ended', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>volumechange</code></td>
+          <td>Изменение громкости</td>
+          <td><code>video.addEventListener('volumechange', handler)</code></td>
+        </tr>
+        <tr>
+          <td><code>timeupdate</code></td>
+          <td>Изменение текущего времени воспроизведения</td>
+          <td><code>video.addEventListener('timeupdate', handler)</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>Спасибо за прочтение! Подписывайтесь на обновления блога для новых статей о JavaScript и веб-разработке.</p>
+  </footer>
+</article>

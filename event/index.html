@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Современные методы обработки событий в JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: monospace;
+    }
+    article section {
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<article>
+  <header>
+    <h1>Современные методы обработки событий в JavaScript</h1>
+    <p><em>Автор: Андрей Майный · Дата: 05 апреля 2025 г.</em></p>
+  </header>
+
+  <section>
+    <h2>Введение</h2>
+    <p>
+      События — это основной механизм взаимодействия пользователя с веб-приложением.
+      Современный JavaScript предоставляет мощные и гибкие инструменты для их обработки.
+    </p>
+  </section>
+
+  <section>
+    <h2>1. addEventListener</h2>
+    <p>Добавление обработчика события без перезаписи других.</p>
+    <pre><code>
+// HTML:
+<button id="btn">Нажми меня</button>
+
+// JS:
+const button = document.getElementById('btn');
+
+button.addEventListener('click', () => {
+  alert('Кнопка нажата!');
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>2. removeEventListener</h2>
+    <p>Удаление ранее назначенного обработчика события.</p>
+    <pre><code>
+function handleClick() {
+  alert('Это сообщение покажется только один раз.');
+  button.removeEventListener('click', handleClick);
+}
+
+button.addEventListener('click', handleClick);
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>3. EventTarget</h2>
+    <p>Базовый класс для всех объектов, поддерживающих события.</p>
+    <pre><code>
+class MyEmitter extends EventTarget {}
+const emitter = new MyEmitter();
+
+emitter.addEventListener('custom', (e) => {
+  console.log('Пользовательское событие:', e.detail);
+});
+
+emitter.dispatchEvent(new CustomEvent('custom', { detail: 'Hello' }));
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>4. CustomEvent</h2>
+    <p>Создание пользовательских событий с данными.</p>
+    <pre><code>
+document.addEventListener('myevent', (e) => {
+  console.log('Данные из события:', e.detail);
+});
+
+document.dispatchEvent(new CustomEvent('myevent', {
+  detail: { user: 'Alice' }
+}));
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>5. dispatchEvent</h2>
+    <p>Вызов события программно.</p>
+    <pre><code>
+const input = document.querySelector('input');
+
+input.addEventListener('change', () => {
+  console.log('Значение изменено');
+});
+
+input.value = 'test';
+input.dispatchEvent(new Event('change'));
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>6. once — однократное выполнение</h2>
+    <p>Обработчик выполняется один раз.</p>
+    <pre><code>
+button.addEventListener('click', () => {
+  alert('Этот обработчик выполнится один раз.');
+}, { once: true });
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>7. passive — повышение производительности</h2>
+    <p>Используется для оптимизации скролла и жестов.</p>
+    <pre><code>
+window.addEventListener('wheel', (e) => {
+  console.log('Scrolling...');
+}, { passive: true });
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>8. AbortController — отмена слушателей</h2>
+    <p>Отмена обработчика через сигнал контроллера.</p>
+    <pre><code>
+const controller = new AbortController();
+const signal = controller.signal;
+
+button.addEventListener('click', () => {
+  alert('Обработчик выполнен!');
+}, { signal });
+
+controller.abort(); // Отменяет все связанные обработчики
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>9. on* свойства (устаревший стиль)</h2>
+    <p>Один обработчик на событие, перезаписывает предыдущий.</p>
+    <pre><code>
+button.onclick = () => {
+  alert('Первый обработчик');
+};
+
+button.onclick = () => {
+  alert('Второй обработчик — перезапишет первый!');
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>10. HTML атрибуты on* (не рекомендуется)</h2>
+    <p>Не лучшая практика, но до сих пор встречается.</p>
+    <pre><code>
+<!-- HTML -->
+<button onclick="alert('Старый способ')">Кликни меня</button>
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>Рекомендации</h2>
+    <ul>
+      <li>✅ Используйте <code>addEventListener</code> вместо устаревших методов</li>
+      <li>✅ Удаляйте обработчики после использования</li>
+      <li>✅ Применяйте <code>{ once }</code> и <code>{ passive }</code> для улучшения производительности</li>
+      <li>❌ Избегайте встраивания логики в HTML через <code>onclick</code></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Спасибо за прочтение! Подписывайтесь на обновления блога для новых статей о JavaScript и веб-разработке.</p>
+  </footer>
+</article>

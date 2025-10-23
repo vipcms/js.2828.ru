@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Расширенная таблица событий JavaScript</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+
+    article {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 16px;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #ecf0f1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+    }
+
+    caption {
+      caption-side: top;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .deprecated {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    .important {
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    tr td:first-child {
+      font-weight: 600;
+      background-color: #fbfbfb;
+    }
+
+    pre code {
+      background-color: #f4f4f4;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.95em;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<article>
+  <header>
+    <h1>Расширенная таблица событий JavaScript</h1>
+    <p><em>Автор: Профессор JS · Дата: 05 апреля 2025 г.</em></p>
+    <p>Все современные и мобильные события, включая WebSocket, IndexedDB и Drag & Drop API.</p>
+  </header>
+
+  <section>
+    <h2>События</h2>
+    <table aria-label="Таблица событий JavaScript">
+      <thead>
+        <tr>
+          <th>Категория</th>
+          <th>Событие</th>
+          <th>Описание</th>
+          <th>Пример использования</th>
+          <th>Примечание</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- Mobile -->
+        <tr>
+          <td rowspan="2">Мобильные</td>
+          <td class="important"><code>wheel</code></td>
+          <td>Прокрутка колесиком мыши или тачпадом</td>
+          <td><code>window.addEventListener('wheel', handler)</code></td>
+          <td>Поддерживает touchpad на мобильных устройствах</td>
+        </tr>
+        <tr>
+          <td class=""><code>orientationchange</code></td>
+          <td>Изменение ориентации экрана</td>
+          <td><code>window.addEventListener('orientationchange', handler)</code></td>
+          <td>Доступно только на мобильных устройствах</td>
+        </tr>
+
+        <!-- WebSockets -->
+        <tr>
+          <td rowspan="5">WebSockets</td>
+          <td class="important"><code>open</code></td>
+          <td>Соединение установлено</td>
+          <td><code>socket.addEventListener('open', handler)</code></td>
+          <td>Вызывается один раз при успешном подключении</td>
+        </tr>
+        <tr>
+          <td class="important"><code>message</code></td>
+          <td>Получено сообщение от сервера</td>
+          <td><code>socket.addEventListener('message', handler)</code></td>
+          <td>Часто используется для обработки данных</td>
+        </tr>
+        <tr>
+          <td><code>error</code></td>
+          <td>Ошибка соединения</td>
+          <td><code>socket.addEventListener('error', handler)</code></td>
+          <td>Нужно корректно обработать</td>
+        </tr>
+        <tr>
+          <td><code>close</code></td>
+          <td>Соединение закрыто</td>
+          <td><code>socket.addEventListener('close', handler)</code></td>
+          <td>Вызывается при любом закрытии</td>
+        </tr>
+        <tr>
+          <td class="deprecated"><code>reconnect</code></td>
+          <td>Пользовательское событие повторного подключения</td>
+          <td>—</td>
+          <td>Не стандартное, но часто реализуется вручную</td>
+        </tr>
+
+        <!-- IndexedDB -->
+        <tr>
+          <td rowspan="6">IndexedDB</td>
+          <td class="important"><code>success</code></td>
+          <td>Успешное открытие базы данных</td>
+          <td><code>request.addEventListener('success', handler)</code></td>
+          <td>Обязательное событие при работе с IDB</td>
+        </tr>
+        <tr>
+          <td><code>error</code></td>
+          <td>Ошибка при операциях с базой данных</td>
+          <td><code>request.addEventListener('error', handler)</code></td>
+          <td>Требует обработки</td>
+        </tr>
+        <tr>
+          <td class="important"><code>upgradeneeded</code></td>
+          <td>Требуется обновление версии базы</td>
+          <td><code>indexedDB.open(...).addEventListener('upgradeneeded', handler)</code></td>
+          <td>Вызывается при изменении версии БД</td>
+        </tr>
+        <tr>
+          <td><code>blocked</code></td>
+          <td>Открытие блокировано из-за старых соединений</td>
+          <td><code>request.addEventListener('blocked', handler)</code></td>
+          <td>Важно для управления версиями</td>
+        </tr>
+        <tr>
+          <td><code>complete</code></td>
+          <td>Завершение операции записи</td>
+          <td><code>transaction.addEventListener('complete', handler)</code></td>
+          <td>Используется после добавления/обновления записей</td>
+        </tr>
+        <tr>
+          <td><code>abort</code></td>
+          <td>Операция прервана</td>
+          <td><code>transaction.addEventListener('abort', handler)</code></td>
+          <td>Может быть вызвано пользователем или ошибкой</td>
+        </tr>
+
+        <!-- Drag and Drop -->
+        <tr>
+          <td rowspan="7">Drag and Drop</td>
+          <td class="important"><code>dragstart</code></td>
+          <td>Начало перетаскивания</td>
+          <td><code>el.addEventListener('dragstart', handler)</code></td>
+          <td>Важно установить данные через dataTransfer</td>
+        </tr>
+        <tr>
+          <td><code>drag</code></td>
+          <td>Процесс перетаскивания</td>
+          <td><code>el.addEventListener('drag', handler)</code></td>
+          <td>Вызывается постоянно во время перетаскивания</td>
+        </tr>
+        <tr>
+          <td><code>dragend</code></td>
+          <td>Окончание перетаскивания</td>
+          <td><code>el.addEventListener('dragend', handler)</code></td>
+          <td>Вызывается как на источнике, так и на цели</td>
+        </tr>
+        <tr>
+          <td class="important"><code>dragenter</code></td>
+          <td>Курсор входит в зону дропа</td>
+          <td><code>target.addEventListener('dragenter', handler)</code></td>
+          <td>Часто используется вместе с dragover</td>
+        </tr>
+        <tr>
+          <td class="important"><code>dragover</code></td>
+          <td>Курсор над зоной дропа</td>
+          <td><code>target.addEventListener('dragover', handler)</code></td>
+          <td>Нужно предотвратить дефолтное поведение</td>
+        </tr>
+        <tr>
+          <td class="important"><code>drop</code></td>
+          <td>Объект "упал" на целевой элемент</td>
+          <td><code>target.addEventListener('drop', handler)</code></td>
+          <td>Основное событие для получения данных</td>
+        </tr>
+        <tr>
+          <td><code>dragleave</code></td>
+          <td>Курсор покидает зону дропа</td>
+          <td><code>target.addEventListener('dragleave', handler)</code></td>
+          <td>Можно использовать для стилизации</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p>Спасибо за прочтение! Подписывайтесь на обновления блога для новых статей о JavaScript и веб-разработке.</p>
+  </footer>
+</article>
+<noscript>
+Таблица оформлена с использованием классов:
+.deprecated — для устаревших событий (тусклый стиль)
+.important — для основных, часто используемых событий (более заметно)
+Стили CSS встроены в <style> и оптимизированы под удобство чтения
+Полностью семантическая разметка
+Современный, эргономичный дизайн
+<noscript>
+<script src="/clipboard-code.js"></script>
